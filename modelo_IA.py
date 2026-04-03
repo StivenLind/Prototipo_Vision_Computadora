@@ -63,7 +63,12 @@ print("\nModelo guardado como modelo_tecnica_antebrazos.pkl")
 
 # ---------------- 8. FUNCIÓN DE PREDICCIÓN ----------------
 def predecir_tecnica(angulo_brazos, angulo_rodilla, angulo_tronco):
-    entrada = np.array([[angulo_brazos, angulo_rodilla, angulo_tronco]])
+    # Mantener nombres de columnas evita warnings de scikit-learn.
+    entrada = pd.DataFrame([{
+        "angulo_brazos": angulo_brazos,
+        "angulo_rodilla": angulo_rodilla,
+        "angulo_tronco": angulo_tronco
+    }])
     pred = modelo.predict(entrada)[0]
     return "CORRECTO" if pred == 1 else "INCORRECTO"
 
